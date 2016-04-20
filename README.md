@@ -1,8 +1,8 @@
 # Moco
 This is a Moco-app for Android.
 
-git add filename or foldername/     #do not forget "/"
+Step 1: git add filenameor foldername/    # make sure you don't forget "/"
 
-git commit -m"your comments"
+Step 2: git commit -m"your comments"
 
-git push -u origin master
+Step 3: git push -u origin master
