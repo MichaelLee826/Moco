@@ -21,6 +21,17 @@
 
     </RelativeLayout>
 
+    <ListView
+        android:id="@+id/MyClassListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#a6a4a4"
+        android:dividerHeight="3dp"
+        android:layout_below="@+id/backgroundLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp">
+    </ListView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"

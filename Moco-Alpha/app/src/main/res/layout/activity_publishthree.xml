@@ -42,8 +42,121 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:id="@+id/PublishThreeAgent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:id="@+id/PublishThreeAgentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开课机构："
+                    android:textColor="#9a9a9a"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"/>
+
+                <Spinner
+                    android:id="@+id/PublishThreeAgencySpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="bottom"
+                    android:layout_toRightOf="@+id/PublishThreeAgentName"
+                    >
+                </Spinner>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/PublishThreeTeacherName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/PublishThreeAgent">
+
+                <TextView
+                    android:id="@+id/PublishThreeTeacherNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="讲师姓名："
+                    android:textColor="#9a9a9a"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:id="@+id/PublishThreeTeacherNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/PublishThreeTeacherIntro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/PublishThreeTeacherName">
+
+                <TextView
+                    android:id="@+id/PublishThreeTeacherIntroTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="讲师介绍："
+                    android:textColor="#9a9a9a"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:id="@+id/PublishThreeTeacherIntroEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/PublishThreeContactInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/PublishThreeTeacherIntro">
+
+                <TextView
+                    android:id="@+id/PublishThreeContactTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话："
+                    android:textColor="#9a9a9a"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:id="@+id/PublishThreeContactEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece" />
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/PublishThreeIntroTextView"
+                android:id="@+id/PublishThreeCourseIntroTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="课程简介："
@@ -52,15 +165,45 @@
                 android:layout_margin="10dp" />
 
             <EditText
-                android:id="@+id/PublishThreeIntroEditText"
+                android:id="@+id/PublishThreeCourseIntroEditText"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textSize="15sp"
+                android:padding="10dp"
                 android:hint="简洁的介绍，让学员清晰明了地了解课程内容"
-                android:gravity="center"
+                android:gravity="left"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="#cfcece"/>
+
+            <LinearLayout
+                android:id="@+id/PublishThreeTargetCustomer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/PublishThreeIntroEditText">
+
+                <TextView
+                    android:id="@+id/PublishThreeTargetCustomerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="适用人群："
+                    android:textColor="#9a9a9a"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:id="@+id/PublishThreeTargetCustomerEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/PublishThreeCategory"
@@ -69,10 +212,7 @@
                 android:text="课程目录："
                 android:textColor="#9a9a9a"
                 android:textSize="15sp"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_margin="10dp" />
 
             <LinearLayout
                 android:id="@+id/PublishThreeCategoryLayout"
@@ -80,15 +220,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/PublishThreeCategoryEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="#cfcece"/>
             </LinearLayout>
 
 

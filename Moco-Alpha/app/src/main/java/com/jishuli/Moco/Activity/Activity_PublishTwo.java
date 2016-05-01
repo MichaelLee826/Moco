@@ -1,17 +1,23 @@
 package com.jishuli.Moco.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import com.jishuli.Moco.BusinessLogicLayer.dao.CityDao;
 import com.jishuli.Moco.BusinessLogicLayer.dao.CountyDao;
@@ -23,10 +29,15 @@ import com.jishuli.Moco.PersistenceLayer.County;
 import com.jishuli.Moco.PersistenceLayer.Province;
 import com.jishuli.Moco.R;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class Activity_PublishTwo extends Activity {
+    //从第一页传来的数据
     private String locationProvince;
     private String locationCity;
     private String locationDistrict;
@@ -35,36 +46,58 @@ public class Activity_PublishTwo extends Activity {
     private String provinceCode;
     private String cityCode;
     private String districtCode;
+    private Bitmap pictureBitmap;
 
-    private ImageButton backButton;
-
-    private boolean isFree = true;
-    private RadioGroup radioGroup;
-    private RadioButton freeRadioButton;
-    private RadioButton chargeRadioButton;
-    private EditText priceEditText;
-
-    private Spinner beginYearSpinner;
-    private Spinner beginMonthSpinner;
-    private Spinner beginDaySpinner;
-    private Spinner endYearSpinner;
-    private Spinner endMonthSpinner;
-    private Spinner endDaySpinner;
-    private Spinner provinceSpinner;
-    private Spinner citySpinner;
-    private Spinner disrictSpinner;
-
+    //第二页的数据
+    private String price;
     private String beginYear;
     private String beginMonth;
     private String beginDay;
     private String endYear;
     private String endMonth;
     private String endDay;
+    private String morningWeekday = "";
+    private String afternoonWeekday = "";
+    private String morningBeginTime;
+    private String morningEndTime;
+    private String afternoonBeginTime;
+    private String afternoonEndTime;
+    private String locationDetail;
+    private String enrollNumber;
+
+    private ImageButton backButton;
+
+    //价格
+    private boolean isFree = true;
+    private RadioGroup radioGroup;
+    private RadioButton freeRadioButton;
+    private RadioButton chargeRadioButton;
+    private EditText priceEditText;
+
+    //开始和结束年月日、省市区下拉菜单
+    private Spinner beginYearSpinner, beginMonthSpinner, beginDaySpinner;
+    private Spinner endYearSpinner, endMonthSpinner, endDaySpinner;
+    private Spinner provinceSpinner, citySpinner, districtSpinner;
+
+    //上午时段的开课时间多选框
+    private CheckBox MMondayCheckBox, MTuesdayCheckBox, MWednesdayCheckBox, MThursdayCheckBox, MFridayCheckBox, MSaturdayCheckBox, MSundayCheckBox;
+    private List<CheckBox> beginCheckBoxs = new ArrayList<CheckBox>();
+
+    //下午时段的开课时间多选框
+    private CheckBox AMondayCheckBox, ATuesdayCheckBox, AWednesdayCheckBox, AThursdayCheckBox, AFridayCheckBox, ASaturdayCheckBox, ASundayCheckBox;
+    private List<CheckBox> endCheckBoxs = new ArrayList<CheckBox>();
+
+    //日历对象
+    private Calendar calendar = Calendar.getInstance(Locale.CHINA);
+
+    private EditText morningBeginTimeEditText;
+    private EditText morningEndTimeEditText;
+
+    private EditText afternoonBeginTimeEditText;
+    private EditText afternoonEndTimeEditText;
 
     private EditText locationEditText;
-    private EditText agentNameEditText;
-    private EditText teacherNameEditText;
-    private EditText teacherIntroEditText;
+    private EditText enrollNumberEditText;
 
     private Button nextButton;
 
@@ -78,26 +111,21 @@ public class Activity_PublishTwo extends Activity {
         setContentView(R.layout.activity_publishtwo);
 
         findViews();        //1.找到各种控件
-        //getData();
+        getData();          //2.从第一页传来的数据
         setListeners();     //3.设置监听器
         setSpinners();      //4.设置各个下拉菜单
-
-        //返回箭头的监听器
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity_PublishTwo.this.finish();
-            }
-        });
     }
 
     //1.找到各种控件
     public void findViews(){
+        backButton = (ImageButton)findViewById(R.id.PublishTwoBackgroundLayoutBackButton);
         nextButton = (Button)findViewById(R.id.PublishTwoNextButton);
+
         radioGroup = (RadioGroup)findViewById(R.id.PublishTwoRadioGroup);
         freeRadioButton = (RadioButton)findViewById(R.id.PublishTwoFreeRadioButton);
         chargeRadioButton = (RadioButton)findViewById(R.id.PublishTwoChargeRadioButton);
         priceEditText = (EditText)findViewById(R.id.PublishTwoChargeEditText);
+
         beginYearSpinner = (Spinner)findViewById(R.id.PublishTwoBeginTimeYear);
         beginMonthSpinner = (Spinner)findViewById(R.id.PublishTwoBeginTimeMonth);
         beginDaySpinner = (Spinner)findViewById(R.id.PublishTwoBeginTimeDay);
@@ -106,33 +134,108 @@ public class Activity_PublishTwo extends Activity {
         endDaySpinner = (Spinner)findViewById(R.id.PublishTwoEndTimeDay);
         provinceSpinner = (Spinner)findViewById(R.id.PublishTwoProvinceSpinner);
         citySpinner = (Spinner)findViewById(R.id.PublishTwoCitySpinner);
-        disrictSpinner = (Spinner)findViewById(R.id.PublishTwoDistrictSpinner);
+        districtSpinner = (Spinner)findViewById(R.id.PublishTwoDistrictSpinner);
         locationEditText = (EditText)findViewById(R.id.PublishTwoLocationEditText);
-        agentNameEditText = (EditText)findViewById(R.id.PublishTwoAgentNameEditText);
-        teacherNameEditText = (EditText)findViewById(R.id.PublishTwoTeacherNameEditText);
-        teacherIntroEditText = (EditText)findViewById(R.id.PublishTwoTeacherIntroEditText);
-        backButton = (ImageButton)findViewById(R.id.PublishTwoBackgroundLayoutBackButton);
+
+        enrollNumberEditText = (EditText)findViewById(R.id.PublishTwoEnrollNumber);
+
+        MMondayCheckBox = (CheckBox)findViewById(R.id.PublishTwoMorningCheckBoxMonday);
+        MTuesdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoMorningCheckBoxTuesday);
+        MWednesdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoMorningCheckBoxWednesday);
+        MThursdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoMorningCheckBoxThursday);
+        MFridayCheckBox = (CheckBox)findViewById(R.id.PublishTwoMorningCheckBoxFriday);
+        MSaturdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoMorningCheckBoxSaturday);
+        MSundayCheckBox = (CheckBox)findViewById(R.id.PublishTwoMorningCheckBoxSunday);
+
+        morningBeginTimeEditText = (EditText)findViewById(R.id.PublishTwoMorningClockBeginTimeEditText);
+        morningEndTimeEditText = (EditText)findViewById(R.id.PublishTwoMorningClockEndTimeEditText);
+
+        AMondayCheckBox = (CheckBox)findViewById(R.id.PublishTwoAfternoonCheckBoxMonday);
+        ATuesdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoAfternoonCheckBoxTuesday);
+        AWednesdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoAfternoonCheckBoxWednesday);
+        AThursdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoAfternoonCheckBoxThursday);
+        AFridayCheckBox = (CheckBox)findViewById(R.id.PublishTwoAfternoonCheckBoxFriday);
+        ASaturdayCheckBox = (CheckBox)findViewById(R.id.PublishTwoAfternoonCheckBoxSaturday);
+        ASundayCheckBox = (CheckBox)findViewById(R.id.PublishTwoAfternoonCheckBoxSunday);
+
+        afternoonBeginTimeEditText = (EditText)findViewById(R.id.PublishTwoAfternoonClockBeginTimeEditText);
+        afternoonEndTimeEditText = (EditText)findViewById(R.id.PublishTwoAfternoonClockEndTimeEditText);
+
+        beginCheckBoxs.add(MMondayCheckBox);
+        beginCheckBoxs.add(MTuesdayCheckBox);
+        beginCheckBoxs.add(MWednesdayCheckBox);
+        beginCheckBoxs.add(MThursdayCheckBox);
+        beginCheckBoxs.add(MFridayCheckBox);
+        beginCheckBoxs.add(MSaturdayCheckBox);
+        beginCheckBoxs.add(MSundayCheckBox);
+
+        endCheckBoxs.add(AMondayCheckBox);
+        endCheckBoxs.add(ATuesdayCheckBox);
+        endCheckBoxs.add(AWednesdayCheckBox);
+        endCheckBoxs.add(AThursdayCheckBox);
+        endCheckBoxs.add(AFridayCheckBox);
+        endCheckBoxs.add(ASaturdayCheckBox);
+        endCheckBoxs.add(ASundayCheckBox);
     }
 
     //2.从上一个Activity传来的数据
     public void getData(){
         Bundle bundle = this.getIntent().getExtras();
-        locationProvince = bundle.getString("province");       //目前定位的省
-        locationCity = bundle.getString("city");               //目前定位的市
-        locationDistrict = bundle.getString("district");       //目前定位的区
-        className = bundle.getString("classname");           //课程名称
-        classCode = bundle.getString("classcode");           //课程分类编码
+        locationProvince = bundle.getString("province");        //目前定位的省
+        locationCity = bundle.getString("city");                //目前定位的市
+        locationDistrict = bundle.getString("district");        //目前定位的区
+        className = bundle.getString("classname");              //课程名称
+        classCode = bundle.getString("classcode");              //课程分类编码
+
+        Intent intent = getIntent();
+        pictureBitmap = intent.getParcelableExtra("bitmap");    //课程图片
     }
 
     //3.设置监听器
     public void setListeners(){
+        //返回箭头的监听器
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity_PublishTwo.this.finish();
+            }
+        });
+
         radioGroup.setOnCheckedChangeListener(new RadioListener());         //3-1.是否收费
+        nextButton.setOnClickListener(new NextListener());                  //3-2.下一步按钮的监听器
 
+        //3-3.选择时间
+        morningBeginTimeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(Activity_PublishTwo.this, timeSetListener1, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+                timePickerDialog.show();
+            }
+        });
 
+        morningEndTimeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(Activity_PublishTwo.this, timeSetListener2, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+                timePickerDialog.show();
+            }
+        });
 
+        afternoonBeginTimeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(Activity_PublishTwo.this, timeSetListener3, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+                timePickerDialog.show();
+            }
+        });
 
-
-        nextButton.setOnClickListener(new NextListener());                  //3-3.下一步按钮的监听器
+        afternoonEndTimeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(Activity_PublishTwo.this, timeSetListener4, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+                timePickerDialog.show();
+            }
+        });
     }
 
     //4.设置各个下拉菜单
@@ -143,9 +246,9 @@ public class Activity_PublishTwo extends Activity {
         String currentYear = date.substring(0, 4);
 
         //年份
-        final String[] years = new String[50];
+        final String[] years = new String[10];
         int y = Integer.valueOf(currentYear);
-        for (int i = 0; i < 50; i++){
+        for (int i = 0; i < 10; i++){
             years[i] = String.valueOf(y);
             y++;
         }
@@ -242,26 +345,212 @@ public class Activity_PublishTwo extends Activity {
         }
     }
 
-
-    //3-3.下一步按钮的监听器
+    //3-2.下一步按钮的监听器
     public class NextListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
+            morningWeekday = "";
+            afternoonWeekday = "";
+
             Intent intent = new Intent();
             intent.setClass(Activity_PublishTwo.this, Activity_PublishThree.class);
 
-            /*Bundle bundle = new Bundle();
-            bundle.putString("province", locationProvince);               //目前定位的省
-            bundle.putString("city", locationCity);                       //目前定位的市
-            bundle.putString("district", locationDistrict);               //目前定位的区
-            bundle.putString("classname", className);                     //课程名称
-            bundle.putString("classcode", classCode);                     //课程分类编码
+            Bundle bundle = new Bundle();
+            bundle.putString("provinceCode", provinceCode);
+            bundle.putString("cityCode", cityCode);
+            bundle.putString("districtCode", districtCode);
+            bundle.putString("classname", className);
+            bundle.putString("classcode", classCode);
+            intent.putExtra("bitmap", pictureBitmap);
+            //以上都是从第一页传来的数据
+            //以下是第二页的数据
 
-            intent.putExtras(bundle);*/
+            //免费
+            if (isFree == true){
+                price = "0";
+            }
+            //收费
+            else {
+                if (priceEditText.getText().length() == 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishTwo.this);
+                    builder.setMessage("请填写价格");
+                    builder.setTitle("提示");
+                    builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                    return;
+                }
+                else {
+                    price = priceEditText.getText().toString();
+                }
+            }
+            bundle.putString("price", price);
 
+            bundle.putString("beginYear", beginYear);                     //开始和结束的年月日
+            bundle.putString("beginMonth", beginMonth);
+            bundle.putString("beginDay", beginDay);
+            bundle.putString("endYear", endYear);
+            bundle.putString("endMonth", endMonth);
+            bundle.putString("endDay", endDay);
+
+            //开始和结束周几
+            for (CheckBox c : beginCheckBoxs) {
+                if (c.isChecked()){
+                    morningWeekday = morningWeekday + c.getText().toString();
+                }
+                else {
+                    morningWeekday = morningWeekday + "";
+                }
+            }
+
+            for (CheckBox c : endCheckBoxs) {
+                if (c.isChecked()){
+                    afternoonWeekday = afternoonWeekday + c.getText().toString();
+                }
+                else {
+                    afternoonWeekday = afternoonWeekday + "";
+                }
+            }
+
+            if (morningWeekday.isEmpty() | afternoonWeekday.isEmpty()){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishTwo.this);
+                builder.setMessage("请选择时间");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                bundle.putString("morningWeekday", morningWeekday);
+                bundle.putString("afternoonWeekday", afternoonWeekday);
+            }
+
+            //上午和下午的开始和结束时间
+            morningBeginTime = morningBeginTimeEditText.getText().toString();
+            morningEndTime = morningEndTimeEditText.getText().toString();
+            afternoonBeginTime = afternoonBeginTimeEditText.getText().toString();
+            afternoonEndTime = afternoonEndTimeEditText.getText().toString();
+            if (morningBeginTime.length() == 0 | morningEndTime.length() == 0l | afternoonBeginTime.length() == 0 | afternoonEndTime.length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishTwo.this);
+                builder.setMessage("请填写时间");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                bundle.putString("morningBeginTime", morningBeginTime);
+                bundle.putString("morningEndTime", morningEndTime);
+                bundle.putString("afternoonBeginTime", afternoonBeginTime);
+                bundle.putString("afternoonEndTime", afternoonEndTime);
+            }
+
+            //详细地址
+            if (locationEditText.getText().length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishTwo.this);
+                builder.setMessage("请填写详细地址");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                locationDetail = locationEditText.getText().toString();
+            }
+            bundle.putString("locationDetail", locationDetail);
+
+            //开课人数
+            if (enrollNumberEditText.getText().length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishTwo.this);
+                builder.setMessage("请填写开课人数");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                enrollNumber = enrollNumberEditText.getText().toString();
+            }
+            bundle.putString("enrollNumber", enrollNumber);
+
+            //跳转到下一页
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     }
+
+    //3-3.选择时间
+    TimePickerDialog.OnTimeSetListener timeSetListener1 = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+
+            DateFormat df = new java.text.SimpleDateFormat("HH:mm");
+            morningBeginTimeEditText.setText(df.format(calendar.getTime()));
+        }
+    };
+
+    TimePickerDialog.OnTimeSetListener timeSetListener2 = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+
+            DateFormat df = new java.text.SimpleDateFormat("HH:mm");
+            morningEndTimeEditText.setText(df.format(calendar.getTime()));
+        }
+    };
+
+    TimePickerDialog.OnTimeSetListener timeSetListener3 = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+
+            DateFormat df = new java.text.SimpleDateFormat("HH:mm");
+            afternoonBeginTimeEditText.setText(df.format(calendar.getTime()));
+        }
+    };
+
+    TimePickerDialog.OnTimeSetListener timeSetListener4 = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+
+            DateFormat df = new java.text.SimpleDateFormat("HH:mm");
+            afternoonEndTimeEditText.setText(df.format(calendar.getTime()));
+        }
+    };
 
     //4-1.设置月份下拉菜单
     public void setMonthSpinner(String flag, String tempYear){
@@ -270,7 +559,13 @@ public class Activity_PublishTwo extends Activity {
         //月份
         final String[] months = new String[12];
         for (int i = 0; i < 12; i++){
-            months[i] = String.valueOf(i + 1);
+            //月份小于10，前面加0
+            if (i < 9){
+                months[i] = "0" + (i + 1);
+            }
+            else {
+                months[i] = String.valueOf(i + 1);
+            }
         }
 
         //共用的适配器
@@ -283,7 +578,7 @@ public class Activity_PublishTwo extends Activity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     beginMonth = months[position];
-                    setDaySpinner("begin", localYear, beginMonth);                      //4-2.设置开始日期下拉菜单
+                    setDaySpinner("begin", localYear, beginMonth);                   //4-2.设置开始日期下拉菜单
                 }
 
                 @Override
@@ -302,7 +597,7 @@ public class Activity_PublishTwo extends Activity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     endMonth = months[position];
-                    setDaySpinner("end", localYear, endMonth);                      //4-2.设置结束日期下拉菜单
+                    setDaySpinner("end", localYear, endMonth);                   //4-2.设置结束日期下拉菜单
                 }
 
                 @Override
@@ -320,22 +615,43 @@ public class Activity_PublishTwo extends Activity {
         //四种日期
         String[] days28 =new String[28];
         for (int i = 0; i < 28; i++){
-            days28[i] = String.valueOf(i + 1);
+            //日期小于10，前面加0
+            if (i < 9){
+                days28[i] = "0" + (i + 1);
+            }
+            else {
+                days28[i] = String.valueOf(i + 1);
+            }
         }
 
         String[] days29 =new String[29];
         for (int i = 0; i < 29; i++){
-            days29[i] = String.valueOf(i + 1);
+            if (i < 9){
+                days29[i] = "0" + (i + 1);
+            }
+            else {
+                days29[i] = String.valueOf(i + 1);
+            }
         }
 
         String[] days30 =new String[30];
         for (int i = 0; i < 30; i++){
-            days30[i] = String.valueOf(i + 1);
+            if (i < 9){
+                days30[i] = "0" + (i + 1);
+            }
+            else {
+                days30[i] = String.valueOf(i + 1);
+            }
         }
 
         String[] days31 =new String[31];
         for (int i = 0; i < 31; i++){
-            days31[i] = String.valueOf(i + 1);
+            if (i < 9){
+                days31[i] = "0" + (i + 1);
+            }
+            else {
+                days31[i] = String.valueOf(i + 1);
+            }
         }
 
         final String[] days;
@@ -456,8 +772,8 @@ public class Activity_PublishTwo extends Activity {
         }
 
         ArrayAdapter<String> countyAdapter = new ArrayAdapter<String>(Activity_PublishTwo.this, android.R.layout.simple_spinner_dropdown_item, counties);
-        disrictSpinner.setAdapter(countyAdapter);
-        disrictSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        districtSpinner.setAdapter(countyAdapter);
+        districtSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedCounty = counties[position];
@@ -489,6 +805,6 @@ public class Activity_PublishTwo extends Activity {
                 countyNum = i;
             }
         }
-        disrictSpinner.setSelection(countyNum, true);
+        districtSpinner.setSelection(countyNum, true);
     }
 }

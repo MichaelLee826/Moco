@@ -302,7 +302,6 @@ public class Activity_ClassDetail extends Activity {
             @Override
             public void run() {
                 try {
-                    System.out.println(path);
                     URL url = new URL(path);
                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setConnectTimeout(5000);      //超时时间，5秒
@@ -476,9 +475,21 @@ public class Activity_ClassDetail extends Activity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        spinnerTextView3.setText(spinner3String[position]);
+                        String sort = spinner3String[position];
+                        spinnerTextView3.setText(sort);
+
+                        if (sort.equals("离我最近")){
+                            sort = "distance";
+                        }
+                        else if (sort.equals("评价最好")){
+                            sort = "score";
+                        }
+
                         popupWindow.dismiss();
                         popupWindow = null;
+
+                        String path = PATH + "?typeID=" + typeId + "&city=" + cityId + "&sort=" + sort;
+                        downloadData(path);     //2-2.下载数据
                     }
                 });
                 break;

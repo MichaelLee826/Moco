@@ -256,12 +256,240 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/PublishTwoMorningPickDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/PublishTwoEndDate">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="每周"
+                    android:textColor="#9a9a9a"/>
+
+                <CheckBox
+                    android:id="@+id/PublishTwoMorningCheckBoxMonday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="一"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"
+                    android:layout_marginLeft="5dp"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoMorningCheckBoxTuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="二"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoMorningCheckBoxWednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="三"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoMorningCheckBoxThursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="四"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoMorningCheckBoxFriday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="五"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoMorningCheckBoxSaturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="六"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoMorningCheckBoxSunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/PublishTwoMorningClock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:layout_below="@+id/PublishTwoMorningPickDay">
+
+                <TextView
+                    android:id="@+id/PublishTwoMorningClockTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上午"
+                    android:textColor="#9a9a9a"/>
+
+                <EditText
+                    android:id="@+id/PublishTwoMorningClockBeginTimeEditText"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#9a9a9a"
+                    android:layout_marginLeft="5dp"/>
+
+                <EditText
+                    android:id="@+id/PublishTwoMorningClockEndTimeEditText"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/PublishTwoAfternoonPickDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/PublishTwoMorningClock">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="每周"
+                    android:textColor="#9a9a9a"/>
+
+                <CheckBox
+                    android:id="@+id/PublishTwoAfternoonCheckBoxMonday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="一"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"
+                    android:layout_marginLeft="5dp"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoAfternoonCheckBoxTuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="二"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoAfternoonCheckBoxWednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="三"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoAfternoonCheckBoxThursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="四"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoAfternoonCheckBoxFriday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="五"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoAfternoonCheckBoxSaturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="六"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+                <CheckBox
+                    android:id="@+id/PublishTwoAfternoonCheckBoxSunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日"
+                    android:textSize="10sp"
+                    android:textColor="#9a9a9a"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/PublishTwoAfternoonClock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:layout_below="@+id/PublishTwoAfternoonPickDay">
+
+                <TextView
+                    android:id="@+id/PublishTwoAfternoonClockTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下午"
+                    android:textColor="#9a9a9a"/>
+
+                <EditText
+                    android:id="@+id/PublishTwoAfternoonClockBeginTimeEditText"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#9a9a9a"
+                    android:layout_marginLeft="5dp"/>
+
+                <EditText
+                    android:id="@+id/PublishTwoAfternoonClockEndTimeEditText"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="#cfcece"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/PublishTwoLocationSpinners"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginRight="20dp"
-                android:layout_below="@+id/PublishTwoEndDate">
+                android:layout_below="@+id/PublishTwoAfternoonClock">
 
                 <TextView
                     android:id="@+id/PublishTwoLocation"
@@ -270,6 +498,7 @@
                     android:text="开课地点："
                     android:textColor="#9a9a9a"
                     android:textSize="15sp"
+                    android:paddingTop="10dp"
                     android:layout_marginLeft="10dp" />
 
                 <Spinner
@@ -303,97 +532,41 @@
                 android:hint="请输入详细地址"
                 android:padding="10dp"
                 android:textSize="15sp"
-                android:gravity="center"
+                android:gravity="left"
                 android:background="#cfcece"/>
 
             <LinearLayout
-                android:id="@+id/PublishTwoAgent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/PublishTwoLocationEditText">
+                android:layout_below="@+id/PublishTwoLocationEditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/PublishTwoAgentName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="开课机构："
-                    android:textColor="#9a9a9a"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="开课人数："
+                    android:textColor="#9a9a9a"/>
 
                 <EditText
-                    android:id="@+id/PublishTwoAgentNameEditText"
-                    android:layout_width="match_parent"
+                    android:id="@+id/PublishTwoEnrollNumber"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:gravity="center"
                     android:padding="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
+                    android:textSize="15sp"
+                    android:gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="number"
                     android:background="#cfcece"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/PublishTwoTeacherName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/PublishTwoAgent">
 
                 <TextView
-                    android:id="@+id/PublishTwoTeacherNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="教师姓名："
+                    android:text="人"
                     android:textColor="#9a9a9a"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp" />
-
-                <EditText
-                    android:id="@+id/PublishTwoTeacherNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:padding="5dp"
-                    android:gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:background="#cfcece"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/PublishTwoTeacherIntro"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/PublishTwoTeacherName">
-
-                <TextView
-                    android:id="@+id/PublishTwoTeacherIntroTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="教师简介："
-                    android:textColor="#9a9a9a"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp" />
-
-                <EditText
-                    android:id="@+id/PublishTwoTeacherIntroEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:padding="5dp"
-                    android:lines="5"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#cfcece"/>
+                    android:layout_marginLeft="5dp"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

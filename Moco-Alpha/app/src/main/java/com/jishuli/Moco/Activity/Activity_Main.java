@@ -72,7 +72,7 @@ public class Activity_Main extends Activity{
     private AMapLocationClientOption mLocationOption = null;
     private String locationProvince = "山东省";                            //定位的省
     private String locationCity = "青岛市";                                //定位的市
-    private String locaitonDistrict = "市南区";                            //定位的区
+    private String locationDistrict = "市南区";                            //定位的区
     private double locationLat = 0;
     private double locationLng = 0;
 
@@ -109,7 +109,7 @@ public class Activity_Main extends Activity{
                 }
                 //ListView的handler
                 case 1: {
-                    setListViewAdapter();       //设置ListView的适配器
+                    setListViewAdapter();       //9.设置ListView的适配器
                     break;
                 }
                 //更新定位按钮的显示
@@ -223,7 +223,7 @@ public class Activity_Main extends Activity{
         classListView = (ListView)findViewById(R.id.listViewLayout);
 
         //ListView的Header，用于显示Slide
-        View headerView = getLayoutInflater().inflate(R.layout.headerview, null);
+        View headerView = getLayoutInflater().inflate(R.layout.main_headerview, null);
         classListView.addHeaderView(headerView);
 
         //从headerView中才能找到这两个控件
@@ -270,7 +270,7 @@ public class Activity_Main extends Activity{
                         for (int i = 0; i < detailSlide.length(); i++){
                             JSONObject temp = (JSONObject)detailSlide.get(i);
                             String imgPath = temp.getString("img");
-                            //Bitmap bitmap = getSlideImgae(imgPath);       //单独一个函数
+                            //Bitmap bitmap = getSlideImage(imgPath);       //单独一个函数
                         }
 
                         //得到ListView中的数据
@@ -427,7 +427,7 @@ public class Activity_Main extends Activity{
         }).start();
     }
 
-    //handler中：ListView的适配器
+    //9.handler中：ListView的适配器
     public void setListViewAdapter(){
         //ListView的图片
         int[] listImageRes = new int[] {R.mipmap.class1, R.mipmap.class2, R.mipmap.class3, R.mipmap.class4,
@@ -455,7 +455,7 @@ public class Activity_Main extends Activity{
     }
 
     //2-2.得到Slide中的图片
-    private Bitmap getSlideImgae(String imagePath){
+    private Bitmap getSlideImage(String imagePath){
         Bitmap bitmap = null;
         try {
             URL u = new URL(ROOT_PATH + imagePath);
@@ -638,7 +638,7 @@ public class Activity_Main extends Activity{
                             Bundle bundle = new Bundle();
                             bundle.putString("province", locationProvince);     //目前定位的省
                             bundle.putString("city", locationCity);             //目前定位的市
-                            bundle.putString("district", locaitonDistrict);     //目前定位的区
+                            bundle.putString("district", locationDistrict);     //目前定位的区
                             intent.putExtras(bundle);
                             startActivity(intent);
                             break;
@@ -677,7 +677,7 @@ public class Activity_Main extends Activity{
 
                     locationProvince = province;
                     locationCity = city;
-                    locaitonDistrict = district;
+                    locationDistrict = district;
                     locationLat = lat;
                     locationLng = lng;
 

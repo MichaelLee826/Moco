@@ -1,7 +1,9 @@
 package com.jishuli.Moco.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -67,15 +69,6 @@ public class Activity_PublishOne extends Activity {
         findViews();            //1.找到各种控件
         setListeners();         //2.设置监听器
         setSpinners();          //3.设置下拉菜单
-
-        //返回箭头的监听器
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity_PublishOne.this.finish();
-            }
-        });
-
     }
 
     //1.找到各种控件
@@ -90,6 +83,14 @@ public class Activity_PublishOne extends Activity {
 
     //2.设置监听器
     public void setListeners(){
+        //返回箭头的监听器
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity_PublishOne.this.finish();
+            }
+        });
+
         //点击输入框后提示文字消失
         nameEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +215,8 @@ public class Activity_PublishOne extends Activity {
 
                 imageButton.setImageBitmap(resizeBmp);
                 pictureBitmap = resizeBmp;
+                System.out.println(pictureBitmap.getByteCount());
+                System.out.println(pictureBitmap.getRowBytes() * pictureBitmap.getHeight());
             }
             catch (FileNotFoundException e){
             }
@@ -225,8 +228,8 @@ public class Activity_PublishOne extends Activity {
     public class NextListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            /*//判断是否输入了课程名称并上传了图片
-            if (nameEditText.getText().length() == 0 & pictureBitmap == null){
+             //判断是否输入了课程名称并上传了图片
+             if (nameEditText.getText().length() == 0 & pictureBitmap == null){
                 AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishOne.this);
                 builder.setMessage("请输入课程名称并上传图片");
                 builder.setTitle("提示");
@@ -268,12 +271,12 @@ public class Activity_PublishOne extends Activity {
                 });
                 builder.create().show();
                 return;
-            }*/
+            }
 
             Intent intent = new Intent();
             intent.setClass(Activity_PublishOne.this, Activity_PublishTwo.class);       //跳转到课程列表
 
-            /*Bundle bundle = new Bundle();
+            Bundle bundle = new Bundle();
             bundle.putString("province", locationProvince);                             //目前定位的省
             bundle.putString("city", locationCity);                                     //目前定位的市
             bundle.putString("district", locationDistrict);                             //目前定位的区
@@ -282,7 +285,7 @@ public class Activity_PublishOne extends Activity {
             bundle.putString("classcode", subjectCode + courseCode);                    //课程分类编码
 
             intent.putExtras(bundle);
-            //intent.putExtra("bitmap", pictureBitmap);                                   //上传的图片*/
+            intent.putExtra("bitmap", pictureBitmap);                                   //上传的图片
 
             startActivity(intent);
         }

@@ -72,11 +72,29 @@
 
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".Activity.Activity_PublishOne" >
+        <activity android:name=".Activity.Activity_PublishOne"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Activity.Activity_PublishTwo" >
+        <activity android:name=".Activity.Activity_PublishTwo"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Activity.Activity_PublishThree" >
+        <activity android:name=".Activity.Activity_PublishThree"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activity.Activity_MyAgency"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activity.Activity_SignUpAgency"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activity.Activity_JoinAgency"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activity.Activity_SignIn"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activity.Activity_SignUp"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

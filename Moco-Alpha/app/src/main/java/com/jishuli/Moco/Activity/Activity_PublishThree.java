@@ -1,29 +1,86 @@
 package com.jishuli.Moco.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.jishuli.Moco.ExitApplication;
 import com.jishuli.Moco.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class Activity_PublishThree extends Activity {
+    static private String PATH = "http://120.25.166.18/course/new";
+
+    //从第一页和第二页传来的数据
+    private String className;
+    private String classCode;
+    private String provinceCode;
+    private String cityCode;
+    private String districtCode;
+    private Bitmap pictureBitmap;
+    private String price;
+    private String beginYear;
+    private String beginMonth;
+    private String beginDay;
+    private String endYear;
+    private String endMonth;
+    private String endDay;
+    private String morningWeekday;
+    private String afternoonWeekday;
+    private String morningBeginTime;
+    private String morningEndTime;
+    private String afternoonBeginTime;
+    private String afternoonEndTime;
+    private String locationDetail;
+    private String enrollNumber;
+
+    //第三页的数据
+    private String agencyName;
+    private String teacherName;
+    private String teacherIntro;
+    private String contact;
+    private String courseIntro;
+    private String targetCustomer;
+
+
+    private Spinner agencySpinner;
+    private EditText teacherNameEditText;
+    private EditText teacherIntroEditText;
+    private EditText contactEditText;
+    private EditText courseIntroEditText;
+    private EditText targetCustomerEditText;
+    private EditText categoryEditText1;
+
     private LinearLayout linearLayout;
     private ImageButton backButton;
 
     private Button plusButton;
     private Button minusButton;
     private Button nextButton;
-
-    int editNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +92,20 @@ public class Activity_PublishThree extends Activity {
         setContentView(R.layout.activity_publishthree);
 
         findViews();        //1.找到各种控件
-        setListeners();     //2.设置监听器
+        getData();          //2.从上一个Activity传来的数据
+        setSpinner();       //3.设置机构名称的下拉菜单
+        setListeners();     //4.设置监听器
 
-        //返回箭头的监听器
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity_PublishThree.this.finish();
-            }
-        });
+        //添加第一条目录
+        EditText et = new EditText(Activity_PublishThree.this);
+        et.setBackgroundColor(Color.rgb(207, 206, 206));
+        et.setTextSize(15);
+        et.setGravity(Gravity.LEFT);
+        et.setPadding(20, 20, 20, 20);                  //左、上、右、下
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80);
+        layoutParams.setMargins(20, 20, 20, 0);         //左、上、右、下
+        et.setLayoutParams(layoutParams);
+        linearLayout.addView(et);
     }
 
     //1.找到各种控件
@@ -51,40 +113,105 @@ public class Activity_PublishThree extends Activity {
         linearLayout = (LinearLayout)findViewById(R.id.PublishThreeCategoryLayout);
         backButton = (ImageButton)findViewById(R.id.PublishThreeBackgroundLayoutBackButton);
         plusButton = (Button)findViewById(R.id.PublishThreePlusButton);
+        agencySpinner = (Spinner)findViewById(R.id.PublishThreeAgencySpinner);
+        teacherNameEditText = (EditText)findViewById(R.id.PublishThreeTeacherNameEditText);
+        teacherIntroEditText = (EditText)findViewById(R.id.PublishThreeTeacherIntroEditText);
+        contactEditText = (EditText)findViewById(R.id.PublishThreeContactEditText);
+        courseIntroEditText = (EditText)findViewById(R.id.PublishThreeCourseIntroEditText);
+        targetCustomerEditText = (EditText)findViewById(R.id.PublishThreeTargetCustomerEditText);
+        //categoryEditText1 = (EditText)findViewById(R.id.PublishThreeCategoryEditText);
         minusButton = (Button)findViewById(R.id.PublishThreeMinusButton);
         nextButton = (Button)findViewById(R.id.PublishThreeNextButton);
     }
 
-    //2.设置监听器
-    public void setListeners(){
-        plusButton.setOnClickListener(new PlusButtonListener());        //2-1.添加按钮的监听器
-        minusButton.setOnClickListener(new MinusButtonListener());      //2-2.删除按钮的监听器
-        nextButton.setOnClickListener(new NextListener());              //2-3.下一步按钮的监听器
+    //2.从上一个Activity传来的数据
+    public void getData(){
+        Bundle bundle = this.getIntent().getExtras();
+        provinceCode = bundle.getString("provinceCode");
+        cityCode = bundle.getString("cityCode");
+        districtCode = bundle.getString("districtCode");
+        className = bundle.getString("classname");
+        classCode = bundle.getString("classcode");
+        Intent intent = getIntent();
+        pictureBitmap = intent.getParcelableExtra("bitmap");
+        price = bundle.getString("price");
+        beginYear = bundle.getString("beginYear");
+        beginMonth = bundle.getString("beginMonth");
+        beginDay = bundle.getString("beginDay");
+        endYear = bundle.getString("endYear");
+        endMonth = bundle.getString("endMonth");
+        endDay = bundle.getString("endDay");
+        morningWeekday = bundle.getString("morningWeekday");
+        afternoonWeekday = bundle.getString("afternoonWeekday");
+        morningBeginTime = bundle.getString("morningBeginTime");
+        morningEndTime = bundle.getString("morningEndTime");
+        afternoonBeginTime = bundle.getString("afternoonBeginTime");
+        afternoonEndTime = bundle.getString("afternoonEndTime");
+        locationDetail = bundle.getString("locationDetail");
+        enrollNumber = bundle.getString("enrollNumber");
     }
 
-    //2-1.添加按钮的监听器
+    //3.设置机构名称的下拉菜单
+    public void setSpinner(){
+        final String[] strings = new String[10];
+        for (int i = 0; i < 10; i++){
+            strings[i] = "机构名称" + i;
+        }
+        ArrayAdapter<String> agencyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, strings);
+        agencySpinner.setAdapter(agencyAdapter);
+        agencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                agencyName = strings[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        agencySpinner.setSelection(0, true);
+    }
+
+    //4.设置监听器
+    public void setListeners(){
+        //返回箭头的监听器
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity_PublishThree.this.finish();
+            }
+        });
+
+        plusButton.setOnClickListener(new PlusButtonListener());        //4-1.添加按钮的监听器
+        minusButton.setOnClickListener(new MinusButtonListener());      //4-2.删除按钮的监听器
+        nextButton.setOnClickListener(new NextListener());              //4-3.下一步按钮的监听器
+    }
+
+    //4-1.添加按钮的监听器
     public class PlusButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             EditText et = new EditText(Activity_PublishThree.this);
             et.setBackgroundColor(Color.rgb(207, 206, 206));
             et.setTextSize(15);
-            et.setGravity(Gravity.CENTER);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(20, 20, 20, 0);     //左、上、右、下
+            et.setGravity(Gravity.LEFT);
+            et.setPadding(20, 20, 20, 20);                  //左、上、右、下
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80);
+            layoutParams.setMargins(20, 20, 20, 0);         //左、上、右、下
             et.setLayoutParams(layoutParams);
             linearLayout.addView(et);
         }
     }
 
-    //2-2.删除按钮的监听器
+    //4-2.删除按钮的监听器
     public class MinusButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             int i = linearLayout.getChildCount();
 
             if (i == 1){
-                //如果只有一EditText，不删除
+                //如果只有一个EditText，不删除
             }
             else {
                 linearLayout.removeViewAt(i - 1);
@@ -92,22 +219,315 @@ public class Activity_PublishThree extends Activity {
         }
     }
 
-    //2-3.下一步按钮的监听器
+    //4-3.下一步按钮的监听器
     public class NextListener implements View.OnClickListener{
-        String[] contents;
+        String[] contents;      //课程目录
 
         @Override
         public void onClick(View v) {
+            //讲师姓名
+            if (teacherNameEditText.getText().toString().length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+                builder.setMessage("请填写讲师姓名");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                    teacherName = teacherNameEditText.getText().toString();
+            }
+
+            //讲师简介
+            if (teacherIntroEditText.getText().toString().length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+                builder.setMessage("请填写讲师简介");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                teacherIntro = teacherIntroEditText.getText().toString();
+            }
+
+            //联系电话
+            if (contactEditText.getText().toString().length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+                builder.setMessage("请填写联系电话");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                contact = contactEditText.getText().toString();
+            }
+
+            //课程简介
+            if (courseIntroEditText.getText().toString().length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+                builder.setMessage("请填写课程简介");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                courseIntro = courseIntroEditText.getText().toString();
+            }
+
+            //适用人群
+            if (targetCustomerEditText.getText().toString().length() == 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+                builder.setMessage("请填写适用人群");
+                builder.setTitle("提示");
+                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+                return;
+            }
+            else {
+                targetCustomer = targetCustomerEditText.getText().toString();
+            }
+
+            //课程目录
             int i = linearLayout.getChildCount();
             contents = new String[i];
             for (int j = 0; j < i; j++){
                 EditText e = (EditText)linearLayout.getChildAt(j);
                 contents[j] = e.getText().toString();
+
+                //第一条目录为空
+                if (contents[j].length() == 0 && j ==0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+                    builder.setMessage("请填写目录");
+                    builder.setTitle("提示");
+                    builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                    return;
+                }
+
+                //某一条目录为空
+                if (contents[j].length() == 0 && j != 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+                    builder.setMessage("请删除空白目录");
+                    builder.setTitle("提示");
+                    builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                    return;
+                }
             }
 
-            Intent intent = new Intent();
-            intent.setClass(Activity_PublishThree.this, Activity_Main.class);
-            startActivity(intent);
+            /*System.out.println("课程名称：" + className);
+            System.out.println("课程编码：" + classCode);
+            System.out.println("价格：" + price);
+            System.out.println("开始时间：" + beginYear + "-" + beginMonth + "-" + beginDay);
+            System.out.println("结束时间：" + endYear + "-" + endMonth + "-" + endDay);
+            System.out.println("上午：" + morningWeekday);
+            System.out.println("上午时间：" + morningBeginTime + "~" + morningEndTime);
+            System.out.println("下午：" + afternoonWeekday);
+            System.out.println("下午时间：" + afternoonBeginTime + "~" + afternoonEndTime);
+            System.out.println("地址编码：" + provinceCode + cityCode + districtCode);
+            System.out.println("详细地址：" + locationDetail);
+            System.out.println("开课人数：" + enrollNumber);
+            System.out.println("机构名称：" + agencyName);
+            System.out.println("教师名称：" + teacherName);
+            System.out.println("教师简介：" + teacherIntro);
+            System.out.println("联系电话：" + contact);
+            System.out.println("课程简介：" + courseIntro);
+            System.out.println("适用人群：" + targetCustomer);
+            for (String s : contents) {
+                System.out.println(s);
+            }*/
+
+            String absence = "未知";
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("courseName", className);
+                jsonObject.put("userID", absence);
+                jsonObject.put("typeID", classCode.substring(0,2));
+                jsonObject.put("subjectID", classCode.substring(2,4));
+                jsonObject.put("cityID", provinceCode + cityCode);
+                jsonObject.put("districtID", districtCode);
+                jsonObject.put("address", locationDetail);
+
+                //坐标
+                JSONObject jsonLocationObj = new JSONObject();
+                jsonLocationObj.put("lat", absence);
+                jsonLocationObj.put("lng", absence);
+                jsonLocationObj.put("img", absence);
+                jsonObject.put("location", jsonLocationObj);
+
+                jsonObject.put("beginTime", beginYear + "-" + beginMonth + "-" + beginDay);
+                jsonObject.put("endTime", endYear + "-" + endMonth + "-" + endDay);
+
+                //课程时间
+                JSONObject jsonCourseTimeObj = new JSONObject();
+                //4-4.把中文数字改为阿拉伯数字
+                jsonCourseTimeObj.put("week1", transform(morningWeekday));
+                //4-5.修改时间格式
+                jsonCourseTimeObj.put("time1", trim(morningBeginTime) + "-" + trim(morningEndTime));
+                //4-4.把中文数字改为阿拉伯数字
+                jsonCourseTimeObj.put("week2", transform(afternoonWeekday));
+                //4-5.修改时间格式
+                jsonCourseTimeObj.put("time2", trim(afternoonBeginTime) + "-" + trim(afternoonEndTime));
+                jsonObject.put("courseTime", jsonCourseTimeObj);
+
+                jsonObject.put("description", courseIntro);
+                jsonObject.put("price", price);
+                jsonObject.put("TargetCustomer", targetCustomer);
+
+                //课程目录
+                JSONObject jsonContentsObj = new JSONObject();
+                for (int j = 0; j < contents.length; j++){
+                    jsonContentsObj.put("lecture" + (j + 1), contents[j]);
+                }
+                jsonObject.put("courseContents", jsonContentsObj);
+
+                //课程图片  bitmap转为String
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                pictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] coursePic = byteArrayOutputStream.toByteArray();
+                String picString1 = Base64.encodeToString(coursePic, Base64.DEFAULT);
+
+                JSONObject jsonImgObj = new JSONObject();
+                jsonImgObj.put("Img1", picString1);
+                jsonImgObj.put("Img2", absence);
+                jsonObject.put("Img", jsonImgObj);
+
+                jsonObject.put("phoneNum", contact);
+                jsonObject.put("addition", absence);
+
+                //讲师信息
+                JSONObject jsonTeacherObj = new JSONObject();
+                jsonTeacherObj.put("name", teacherName);
+                jsonTeacherObj.put("title", teacherIntro);
+                jsonObject.put("teacher", jsonTeacherObj);
+
+                jsonObject.put("institutionID", absence);
+                jsonObject.put("studentMax", enrollNumber);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(jsonObject);
+            sendData(jsonObject);                   //4-6.发送数据
+
+            //提交成功的对话框
+            AlertDialog.Builder builder = new AlertDialog.Builder(Activity_PublishThree.this);
+            builder.setMessage("提交成功！");
+            builder.setTitle("提示");
+            builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                    Intent intent = new Intent();
+                    intent.setClass(Activity_PublishThree.this, Activity_Main.class);
+                    startActivity(intent);
+                }
+            });
+            builder.create().show();
         }
+    }
+
+    //4-4.把中文数字改为阿拉伯数字
+    public String transform(String s){
+        s = s.replace("一", "1");
+        s = s.replace("二", "2");
+        s = s.replace("三", "3");
+        s = s.replace("四", "4");
+        s = s.replace("五", "5");
+        s = s.replace("六", "6");
+        s = s.replace("日", "7");
+        return s;
+    }
+
+    //4-5.修改时间格式
+    public String trim(String s){
+        s = s.replace(":", "");
+        s = s.trim();
+        s = s + "00";
+        return s;
+    }
+
+    //4-6.发送数据
+    public void sendData(final JSONObject jsonObject){
+        new Thread(new Runnable() {
+            String content = String.valueOf(jsonObject);
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(PATH);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setConnectTimeout(5000);
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setUseCaches(false);
+                    //httpURLConnection.setRequestProperty("User-Agent", "Fiddler");
+                    //httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    //httpURLConnection.setRequestProperty("Charset", encoding);
+
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(content.getBytes());
+                    outputStream.close();
+
+                    if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                        BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                        String retData;
+                        String responseData = "";
+                        while((retData = in.readLine()) != null)
+                        {
+                            responseData += retData;
+                        }
+                        JSONObject jsonObject = new JSONObject(responseData);
+                        String status = jsonObject.getString("status");
+                        System.out.println(status);
+
+                        in.close();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
