@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/MyFeedbackBackgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#47bb96"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/MyFeedbackBackgroundLayoutNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的反馈"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"/>
+
+        <ImageButton
+            android:id="@+id/MyFeedbackBackgroundLayoutBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_back"
+            android:background="#00000000"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/MyFeedbackEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#cfcece"
+        android:hint="您的意见将会伴随我们成长~"
+        android:textColor="#000000"
+        android:lines="10"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/MyFeedbackBackgroundLayout"
+        />
+
+    <Button
+        android:id="@+id/MyFeedbackSendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="提交"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:background="#47bb96" />
+</RelativeLayout>

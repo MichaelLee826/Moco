@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/MyAgency_FootView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我要加入机构"
+        android:textColor="#9a9a9a"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:background="#cfcece"/>
+</RelativeLayout>
