@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">墨课</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_my_class">MyClassActivity</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
+    <string name="title_activity_course_detail">Activity_CourseDetail</string>
+    <string name="title_activity_activity__test">Activity_Test</string>
+
+    <drawable name="clr_normal">#47bb96</drawable>
+    <drawable name="clr_pressed">#7fc79a</drawable>
+</resources>

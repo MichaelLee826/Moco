@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jishuli.Moco">
+
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="23a1901ef8ef578eb814aac2d623c2a8" />
+
+        <activity
+            android:name=".Activity.Activity_Main"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.Activity_ClassDetail"
+            android:label="ClassDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.Activity_MyClass"
+            android:label="@string/title_activity_my_class"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.Activity_MyProfile"
+            android:label="@string/title_activity_my_profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.Activity_CourseDetail"
+            android:label="@string/title_activity_course_detail"
+            android:theme="@style/AppTheme" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity
+            android:name=".Activity.Activity_PublishOne"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Activity_PublishTwo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Activity_PublishThree"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Activity_MyProfile_MyAgency"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Activity_SignUpAgency"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Activity_JoinAgency"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Activity_SignIn"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Activity_SignUp"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activity.Activity_Main_Location" />
+        <activity android:name=".Activity.Activity_MyProfile_About" />
+        <activity android:name=".Activity.Activity_MyProfile_MyFavourite" />
+        <activity android:name=".Activity.Activity_MyProfile_MyReleased"></activity>
+    </application>
+
+</manifest>
