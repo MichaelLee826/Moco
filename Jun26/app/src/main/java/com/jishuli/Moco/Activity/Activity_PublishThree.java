@@ -32,6 +32,7 @@ import org.jsoup.nodes.Document;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -79,9 +80,12 @@ public class Activity_PublishThree extends Activity {
     private String afternoonEndTime;
     private String locationDetail;
     private String enrollNumber;
+    private ArrayList<String> agencyList;
+    private ArrayList<String> agencyIDList;
 
     //第三页的数据
     private String agencyName;
+    private String agencyID;
     private String teacherName;
     private String teacherIntro;
     private String contact;
@@ -243,20 +247,30 @@ public class Activity_PublishThree extends Activity {
         afternoonEndTime = bundle.getString("afternoonEndTime");
         locationDetail = bundle.getString("locationDetail");
         enrollNumber = bundle.getString("enrollNumber");
+        agencyList = bundle.getStringArrayList("agencyList");
+        agencyIDList = bundle.getStringArrayList("agencyIDList");
     }
 
     //3.设置机构名称的下拉菜单
     public void setSpinner(){
-        final String[] strings = new String[10];
-        for (int i = 0; i < 10; i++){
-            strings[i] = "机构名称" + i;
+        int length = agencyList.size();
+        final String[] nameStrings = new String[length];
+        final String[] IDStrings = new String[length];
+
+        for (int i = 0; i < length; i++){
+            nameStrings[i] = agencyList.get(i);
+            IDStrings[i] = agencyIDList.get(i);
         }
-        ArrayAdapter<String> agencyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, strings);
+
+        ArrayAdapter<String> agencyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, nameStrings);
         agencySpinner.setAdapter(agencyAdapter);
         agencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                agencyName = strings[position];
+                agencyName = nameStrings[position];
+                agencyID = IDStrings[position];
+                System.out.println("--"+agencyName);
+                System.out.println("--"+agencyID);
             }
 
             @Override
@@ -551,7 +565,8 @@ public class Activity_PublishThree extends Activity {
                 //讲师信息
                 .addPart(Headers.of("Content-Disposition", "form-data; name=\"teacherName\""), RequestBody.create(null, teacherName))
                 .addPart(Headers.of("Content-Disposition", "form-data; name=\"teacherTitle\""), RequestBody.create(null, teacherIntro))
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"institutionID\""), RequestBody.create(null, agencyName))
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"institutionID\""), RequestBody.create(null, agencyID))
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"institutionName\""), RequestBody.create(null, agencyName))
                 .addPart(Headers.of("Content-Disposition", "form-data; name=\"studentMax\""), RequestBody.create(null, enrollNumber))
 
                 //目录

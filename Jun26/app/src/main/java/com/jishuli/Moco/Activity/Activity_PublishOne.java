@@ -29,14 +29,28 @@ import com.jishuli.Moco.PersistenceLayer.Course;
 import com.jishuli.Moco.PersistenceLayer.Subject;
 import com.jishuli.Moco.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class Activity_PublishOne extends Activity {
+    private static final String RELEASED_PATH = "http://120.25.166.18/releasedInstitution";
+    private static final String JOINED_PATH = "http://120.25.166.18/joinedInstitution";
+
     private EditText nameEditText;
     private Spinner firstCategorySpinner;
     private Spinner secondCategorySpinner;
@@ -60,6 +74,11 @@ public class Activity_PublishOne extends Activity {
 
     private ArrayAdapter<String> subjectAdapter;
     private ArrayAdapter<String> courseAdapter;
+
+    private OkHttpClient mOkHttpClient = new OkHttpClient();
+    private String cookie;
+    private ArrayList<String> agencyList = new ArrayList<>();        //机构名称
+    private ArrayList<String> agencyIDList = new ArrayList<>();      //机构编号
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +110,21 @@ public class Activity_PublishOne extends Activity {
 
             init();                 //1.初始化控件
             setListeners();         //2.设置监听器
-            setSpinners();          //3.设置下拉菜单
+            getJoinedData();        //3.获取已加入的机构列表
+            getReleasedData();      //4.获取创建的机构列表
+            setSpinners();          //5.设置下拉菜单
         }
     }
 
     //1.初始化控件
     public void init(){
+        //取出cookie
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+        cookie = sharedPreferences.getString("cookie", null);
+
+        agencyList.add(0, "个人");        //机构列表第一项为“个人”
+        agencyIDList.add(0, "000000");
+
         nameEditText = (EditText)findViewById(R.id.PublishOnenameEditText);
         firstCategorySpinner = (Spinner)findViewById(R.id.PublishOneSpinner1);
         secondCategorySpinner = (Spinner)findViewById(R.id.PublishOneSpinner2);
@@ -130,7 +158,85 @@ public class Activity_PublishOne extends Activity {
         nextButton.setOnClickListener(new NextListener());
     }
 
-    //3.设置下拉菜单
+    //3.获取已加入的机构数据
+    public void getJoinedData(){
+        Request request = new Request.Builder()
+                .url(JOINED_PATH)
+                .addHeader("Cookie", cookie)
+                .build();
+
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                System.out.println("失败");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                System.out.println(responseData);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONArray jsonArray = jsonObject.getJSONArray("detail");
+                    int length = jsonObject.getInt("length");
+                    for (int i = 0; i < length; i++){
+                        JSONObject temp = (JSONObject)jsonArray.get(i);
+                        String name = temp.getString("name");
+                        String ID = temp.getString("institutionID");
+                        agencyList.add(name);
+                        agencyIDList.add(ID);
+                        System.out.println(name+ID);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    //4.获取创建的机构数据
+    public void getReleasedData(){
+        Request request = new Request.Builder()
+                .url(RELEASED_PATH)
+                .addHeader("Cookie", cookie)
+                .build();
+
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                System.out.println("失败");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                System.out.println(responseData);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONArray jsonArray = jsonObject.getJSONArray("detail");
+                    int length = jsonObject.getInt("length");
+                    for (int i = 0; i < length; i++){
+                        JSONObject temp = (JSONObject)jsonArray.get(i);
+                        String name = temp.getString("name");
+                        String ID = temp.getString("institutionID");
+                        agencyList.add(name);
+                        agencyIDList.add(ID);
+                        System.out.println(name+ID);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    //5.设置下拉菜单
     public void setSpinners(){
         //一级分类的默认下拉菜单
         final SubjectDao subjectDao = DatabaseManager.getmInstance(Activity_PublishOne.this).getSubjectDao();
@@ -328,7 +434,8 @@ public class Activity_PublishOne extends Activity {
             bundle.putString("typeName", subjectString);                                //一级分类名称
             bundle.putString("subjectName", courseString);                              //二级分类名称
             bundle.putString("picturePath", picturePath);                               //图片文件的路径
-
+            bundle.putStringArrayList("agencyList", agencyList);                        //机构列表
+            bundle.putStringArrayList("agencyIDList", agencyIDList);                    //机构编号列表
             intent.putExtras(bundle);
             //intent.putExtra("bitmap", pictureBitmap);                                   //上传的图片*/
 

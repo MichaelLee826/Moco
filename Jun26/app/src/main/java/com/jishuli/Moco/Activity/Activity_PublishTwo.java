@@ -51,6 +51,8 @@ public class Activity_PublishTwo extends Activity {
     private String cityCode;
     private String districtCode;
     private String picturePath;
+    private ArrayList<String> agencyList;
+    private ArrayList<String> agencyIDList;
 
     //第二页的数据
     private String price;
@@ -191,13 +193,16 @@ public class Activity_PublishTwo extends Activity {
         locationLat = bundle.getString("lat");                  //目前定位的经度
         locationLng = bundle.getString("lng");                  //目前定位的纬度
 
-        className = bundle.getString("classname");              //课程名称
-        subjectCode = bundle.getString("subjectCode");          //一级分类编码
-        courseCode = bundle.getString("courseCode");            //二级分类编码
-        subjectString = bundle.getString("typeName");           //一级分类名称
-        courseString = bundle.getString("subjectName");         //二级分类名称
+        className = bundle.getString("classname");                  //课程名称
+        subjectCode = bundle.getString("subjectCode");              //一级分类编码
+        courseCode = bundle.getString("courseCode");                //二级分类编码
+        subjectString = bundle.getString("typeName");               //一级分类名称
+        courseString = bundle.getString("subjectName");             //二级分类名称
 
-        picturePath = bundle.getString("picturePath");          //图片文件的路径
+        agencyList = bundle.getStringArrayList("agencyList");       //机构列表
+        agencyIDList = bundle.getStringArrayList("agencyIDList");   //机构编号列表
+
+        picturePath = bundle.getString("picturePath");              //图片文件的路径
     }
 
     //3.设置监听器
@@ -377,6 +382,8 @@ public class Activity_PublishTwo extends Activity {
             bundle.putString("courseCode", courseCode);
             bundle.putString("typeName", subjectString);
             bundle.putString("subjectName", courseString);
+            bundle.putStringArrayList("agencyList", agencyList);
+            bundle.putStringArrayList("agencyIDList", agencyIDList);
             bundle.putString("picturePath", picturePath);
             //以上都是从第一页传来的数据
             //以下是第二页的数据

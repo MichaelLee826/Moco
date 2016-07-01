@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -77,6 +79,7 @@ public class Activity_CourseDetail extends Activity {
     private ImageView heartsImageViews[] = new ImageView[5];
 
     private String pictureString;
+    private Bitmap pictureBitmap;
     private String courseName;
     private double price;
     private int score;
@@ -107,6 +110,7 @@ public class Activity_CourseDetail extends Activity {
     private final static int SAVE_SUCCESS = 2;
     private final static int ENROLL_FAIL = 3;
     private final static int SAVE_FAIL = 4;
+    private final static int SET_PICTURE = 5;
 
     private Handler handler = new Handler(){
         @Override
@@ -118,7 +122,6 @@ public class Activity_CourseDetail extends Activity {
                 case DONE:
                     setData();          //4.设置详情数据
                     setViewPager();     //5.设置ViewPager
-
                     break;
 
                 case ENROLL_SUCCESS:
@@ -172,6 +175,10 @@ public class Activity_CourseDetail extends Activity {
                     });
                     builder.create().show();
                     break;
+
+                case SET_PICTURE:
+                    pictureImageView.setImageBitmap(pictureBitmap);
+                    break;
             }
         }
     };
@@ -191,6 +198,7 @@ public class Activity_CourseDetail extends Activity {
         sl_root = (ScrollableLayout) findViewById(R.id.sl_root);            //开源项目ScrollableLayout的控件
         viewPager = (ViewPager)findViewById(R.id.coursedetail_viewpager);
 
+        pictureImageView = (ImageView)findViewById(R.id.coursedetailImageView);
         courseNameTextView = (TextView)findViewById(R.id.coursedetail_coursename);
         coursePriceTextView = (TextView)findViewById(R.id.coursedetail_price);
         rateNumberTextView = (TextView)findViewById(R.id.coursedetail_ratenumber);
@@ -275,6 +283,7 @@ public class Activity_CourseDetail extends Activity {
 
                         //说明已下载完数据
                         handler.sendEmptyMessage(DONE);
+                        getPicture();                           //6.下载图片
                     }
                     else {
                         System.out.println("网络有问题");
@@ -670,9 +679,34 @@ public class Activity_CourseDetail extends Activity {
         return super.onKeyDown(keyCode, event);
     }
 
+    //6.下载图片
     public void getPicture(){
         String path = "http://120.25.166.18/" + pictureString;
-        System.out.println(path);
 
+        try {
+            URL url = new URL(path);
+            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+            httpURLConnection.setConnectTimeout(5000);      //超时时间，5秒
+            httpURLConnection.setRequestMethod("GET");      //方式为GET
+            httpURLConnection.setDoInput(true);
+
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                InputStream inputStream = httpURLConnection.getInputStream();   //获得输入流
+                byte[] data = readStream(inputStream);                          //把输入流转换成字符串组，单独一个函数：2-1
+                if(data != null){
+                    pictureBitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                }
+                inputStream.close();
+
+                handler.sendEmptyMessage(SET_PICTURE);          //下载完成后，设置图片
+            }
+            else {
+                System.out.println("网络有问题");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

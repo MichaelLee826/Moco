@@ -1,9 +1,13 @@
 package com.jishuli.Moco.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,17 +16,14 @@ import android.widget.Toast;
 import com.jishuli.Moco.ExitApplication;
 import com.jishuli.Moco.R;
 
+import org.json.JSONException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class Activity_MyProfile extends Activity {
     private String cookie = "";
@@ -41,6 +42,49 @@ public class Activity_MyProfile extends Activity {
 
     //程序退出时的时间
     private long exitTime = 0;
+
+    private final static int SUCCESS = 1;
+    private final static int FAIL = 2;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            AlertDialog.Builder builder;
+            switch (msg.what){
+                case SUCCESS:
+                    builder = new AlertDialog.Builder(Activity_MyProfile.this);
+                    builder.setMessage("已退出");
+                    builder.setTitle("提示");
+                    builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent();
+                            intent.setClass(Activity_MyProfile.this, Activity_Main.class);
+                            startActivity(intent);
+
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                    break;
+
+                case FAIL:
+                    builder = new AlertDialog.Builder(Activity_MyProfile.this);
+                    builder.setMessage("退出不成功");
+                    builder.setTitle("提示");
+                    builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +105,10 @@ public class Activity_MyProfile extends Activity {
         }
         else {
             setContentView(R.layout.activity_myprofile);
+
             init();                 //1.初始化控件
             setListeners();         //2.设置按钮监听器
-
-            getUserData();
+            getUserData();          //3.获取用户信息
         }
     }
 
@@ -160,34 +204,7 @@ public class Activity_MyProfile extends Activity {
         });
     }
 
-    //2-1.“退出”功能
-    public void logout(){
-        String path = "http://120.25.166.18/logout";
-
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(path)
-                .addHeader("Cookie", cookie)
-                .build();
-
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                System.out.println("失败");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String responseData = response.body().string();
-                System.out.println(responseData);
-
-            }
-        });
-    }
-
+    //3.获取用户信息
     public void getUserData() {
         final String path = "http://120.25.166.18/logout";
         new Thread(new Runnable() {
@@ -209,6 +226,67 @@ public class Activity_MyProfile extends Activity {
                 }
             }
         }).start();
+    }
+
+    //2-1.“退出”功能
+    public void logout(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String path = "http://120.25.166.18/logout";
+
+                    URL url = new URL(path);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setConnectTimeout(5000);      //超时时间，5秒
+                    httpURLConnection.setRequestMethod("GET");      //方式为GET
+                    httpURLConnection.setDoInput(true);
+
+                    if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                        InputStream inputStream = httpURLConnection.getInputStream();   //获得输入流
+                        byte[] data = readStream(inputStream);                          //2-2.把输入流转换成字符串组，单独一个函数：2-1
+                        String responseString = new String(data);
+
+                        //成功退出，删除本地用户数据
+                        if (responseString.contains("Please Log In")){
+                            SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.remove("userName");
+                            editor.remove("password");
+                            editor.remove("cookie");
+                            editor.remove("_xsrf");
+                            editor.apply();
+
+                            handler.sendEmptyMessage(SUCCESS);
+                        }
+                        else {
+                            handler.sendEmptyMessage(FAIL);
+                        }
+
+                    }
+                    else {
+                        System.out.println("网络有问题");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    //2-2.读数据中用到的函数
+    private static byte[] readStream(InputStream inputStream) throws Exception{
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length = 0;
+        while ((length = inputStream.read(buffer)) != -1){
+            byteArrayOutputStream.write(buffer, 0, length);
+        }
+        byteArrayOutputStream.close();
+        inputStream.close();
+        return byteArrayOutputStream.toByteArray();
     }
 
     //按两下返回键，退出程序

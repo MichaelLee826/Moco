@@ -44,7 +44,6 @@ public class Activity_MyProfile_MyAgency extends Activity {
     private OkHttpClient mOkHttpClient = new OkHttpClient();
     private String cookie;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
