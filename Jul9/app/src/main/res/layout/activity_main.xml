@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Main_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:id="@+id/backgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#47bb96"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="位置"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:background="#00000000"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/Main_SearchBar_EditText"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@drawable/search_frame"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:hint="请输入要搜索的课程"
+            android:imeOptions="actionSearch"
+            android:layout_weight="5"
+            android:focusable="false"/>
+
+        <ImageButton
+            android:id="@+id/plusImageButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_plus"
+            android:background="#00000000"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:layout_below="@+id/backgroundLayout"
+        android:scrollbars="none">
+    </ListView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#b6000000">
+
+        <ImageButton
+            android:id="@+id/frontPage"
+            android:layout_width="30dp"
+            android:layout_height="42dp"
+            android:background="@drawable/bt_frontpage_pressed"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/schedule"/>
+
+        <ImageButton
+            android:id="@+id/schedule"
+            android:layout_width="30dp"
+            android:layout_height="42dp"
+            android:background="@drawable/bt_schedule_pressed"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:id="@+id/profile"
+            android:layout_width="30dp"
+            android:layout_height="42dp"
+            android:background="@drawable/bt_myprofile_pressed"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/schedule"/>
+    </RelativeLayout>
+</RelativeLayout>

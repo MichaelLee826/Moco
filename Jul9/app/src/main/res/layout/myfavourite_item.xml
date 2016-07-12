@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/MyFavouriteItemClassNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/MyFavouriteItemFirstTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学前教育"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:background="#47bb96"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/MyFavouriteItemSecondTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学前教育"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:background="#47bb96"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/MyFavouriteItemDateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开课时间："
+            android:textSize="15sp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/MyFavouriteItemDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginRight="20dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/MyFavouriteItemTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/MyFavouriteItemDateLayout"/>
+
+    <LinearLayout
+        android:id="@+id/MyFavouriteItemAddressLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:layout_below="@+id/MyFavouriteItemTimeTextView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开课地点："
+            android:textSize="15sp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/MyFavouriteItemAddressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginRight="20dp" />
+    </LinearLayout>
+</RelativeLayout>

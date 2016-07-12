@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/AboutBackgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#47bb96"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/AboutBackgroundLayoutNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关于"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"/>
+
+        <ImageButton
+            android:id="@+id/AboutBackgroundLayoutBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_back"
+            android:background="#00000000"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/AboutIconAndNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/AboutBackgroundLayout"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/AboutIconImageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon"/>
+
+        <TextView
+            android:id="@+id/AboutNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="墨课"
+            android:textColor="#000000"
+            android:textSize="40sp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/AboutVersionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="V0.1.0 (20160626)"
+        android:layout_below="@+id/AboutIconAndNameLayout"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/AboutCheckUpdateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="    检查更新    "
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:background="#47bb96"
+        android:layout_below="@+id/AboutVersionTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="墨课，是一款致力于整合优质教育资源和实用生活课程的APP"
+        android:textColor="#000000"
+        android:layout_below="@+id/AboutCheckUpdateButton"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"/>
+</RelativeLayout>
