@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Search_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/SearchBackgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#47bb96"
+        android:layout_alignParentTop="true">
+
+        <EditText
+            android:id="@+id/Search_SearchBar_EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:background="@drawable/search_frame"
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/SearchBackButton"
+            android:layout_toLeftOf="@+id/SearchLocationButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:hint="请输入要搜索的课程"
+            android:imeOptions="actionSearch" />
+
+        <ImageButton
+            android:id="@+id/Search_SearchBar_Delete_ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search_delete"
+            android:layout_alignRight="@+id/Search_SearchBar_EditText"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/SearchBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_back"
+            android:background="#00000000"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"/>
+
+        <ImageButton
+            android:id="@+id/SearchLocationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_map"
+            android:background="#00000000"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/SearchFilterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/SearchBackgroundLayout"
+        android:layout_marginTop="2dp">
+
+        <TextView
+            android:id="@+id/SearchSpinnerTextView1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="附近"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="1dp"
+            android:background="#8c47bb96"/>
+
+        <TextView
+            android:id="@+id/SearchSpinnerTextView2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="课程分类"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="1dp"
+            android:background="#8c47bb96"/>
+
+        <TextView
+            android:id="@+id/SearchSpinnerTextView3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="智能排序"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="1dp"
+            android:background="#8c47bb96"/>
+
+        <TextView
+            android:id="@+id/SearchSpinnerTextView4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="筛选"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="#8c47bb96"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/SearchListViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#a6a4a4"
+        android:dividerHeight="3dp"
+        android:layout_below="@+id/SearchFilterLayout">
+    </ListView>
+</RelativeLayout>
