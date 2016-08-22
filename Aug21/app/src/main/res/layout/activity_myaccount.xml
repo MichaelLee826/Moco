@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/MyAccount_BackgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#47bb96"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/MyAccount_BackgroundLayout_NameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的账户"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"/>
+
+        <ImageButton
+            android:id="@+id/MyAccount_BackgroundLayout_BackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_back"
+            android:background="#00000000"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/MyAccount_Points_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#dfdfdf"
+        android:layout_below="@+id/MyAccount_BackgroundLayout"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <ImageView
+            android:id="@+id/MyAccount_Points_ImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_map"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@+id/MyAccount_Points_ImageView"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/MyAccount_Points_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0分"
+            android:textSize="20sp"
+            android:textColor="#848484"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/MyAccount_Coupon_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#dfdfdf"
+        android:layout_below="@+id/MyAccount_Points_Layout"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <ImageView
+            android:id="@+id/MyAccount_Coupon_ImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_map"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="抵用券"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@+id/MyAccount_Coupon_ImageView"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/MyAccount_Coupon_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0张"
+            android:textSize="20sp"
+            android:textColor="#848484"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"/>
+    </RelativeLayout>
+</RelativeLayout>

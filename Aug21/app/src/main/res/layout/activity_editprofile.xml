@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/EditProfile_BackgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#47bb96"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/EditProfile_BackgroundLayoutNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编辑资料"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"/>
+
+        <ImageButton
+            android:id="@+id/EditProfile_BackgroundLayout_BackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_back"
+            android:background="#00000000"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditProfile_BackgroundLayout"
+        android:layout_above="@+id/EditProfile_Save_Button">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Avatar_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_BackgroundLayout"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改头像"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Avatar_ImageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/avatar_male1"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/EditProfile_Avatar_Arrow"
+                    android:layout_marginRight="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Avatar_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_EditProfileName_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Avatar_Layout"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户名"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:id="@+id/EditProfile_Username_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Username_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Username_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Name_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_EditProfileName_Layout"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="真实姓名"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:id="@+id/EditProfile_Name_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Name_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Name_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Gender_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Name_Layout"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:id="@+id/EditProfile_Gender_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Gender_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Gender_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Birthday_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Gender_Layout"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="生日"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:id="@+id/EditProfile_Birthday_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Birthday_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Birthday_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_City_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Birthday_Layout"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在地"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:id="@+id/EditProfile_City_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_City_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_City_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Phone_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_City_Layout"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机号"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:id="@+id/EditProfile_Phone_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Phone_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Phone_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Email_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Phone_Layout"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="邮箱"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:id="@+id/EditProfile_Email_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Email_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Email_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Education_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Email_Layout"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="教育经历"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Education_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Education_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Teaching_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Education_Layout"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="从教经历"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未填写"
+                    android:textSize="16sp"
+                    android:textColor="#838383"
+                    android:layout_toLeftOf="@+id/EditProfile_Teaching_Arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Teaching_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EditProfile_Password_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9"
+                android:layout_below="@+id/EditProfile_Teaching_Layout"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改密码"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="20dp"/>
+
+                <ImageView
+                    android:id="@+id/EditProfile_Password_Arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/EditProfile_Save_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="保存"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/selector_button" />
+</RelativeLayout>

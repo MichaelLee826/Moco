@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/Popup_Window_ShareBoard_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="分享到"
+        android:textSize="20sp"
+        android:textColor="#47bb96"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/Popup_Window_ShareBoard_Title">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:background="@drawable/umeng_socialize_shareboard_item_background"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/shareBoard_WeChat_SceneSession_ImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/bt_share_wechat" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="微信好友"
+                android:singleLine="true"
+                android:textSize="11sp"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:background="@drawable/umeng_socialize_shareboard_item_background"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/shareBoard_WeChat_SceneTimeline_ImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/bt_share_wechat_circle" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="微信朋友圈"
+                android:singleLine="true"
+                android:textSize="11sp"
+                android:gravity="center"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

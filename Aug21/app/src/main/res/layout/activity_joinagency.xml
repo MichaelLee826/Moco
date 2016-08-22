@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/JoinAgency_BackgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#47bb96"
+        android:layout_alignParentTop="true">
+
+        <EditText
+            android:id="@+id/JoinAgency_SearchBar_EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:background="@drawable/search_frame"
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/JoinAgency_BackButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:hint="请输入要搜索的机构"
+            android:imeOptions="actionSearch" />
+
+        <ImageButton
+            android:id="@+id/JoinAgency_SearchBar_Delete_ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search_delete"
+            android:layout_alignRight="@+id/JoinAgency_SearchBar_EditText"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/JoinAgency_BackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_back"
+            android:background="#00000000"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/JoinAgency_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#a6a4a4"
+        android:dividerHeight="3dp"
+        android:layout_below="@+id/JoinAgency_BackgroundLayout"
+        android:layout_above="@+id/JoinAgency_SignUpButton">
+    </ListView>
+
+    <Button
+        android:id="@+id/JoinAgency_SignUpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="我要注册机构"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/selector_button" />
+</RelativeLayout>
