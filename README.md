@@ -1,18 +1,9 @@
-# Moco
+# 墨课 Moco
 This is a Moco-app for Android.
 
-Push
-
-Step 1: git add filename or foldername/ (make sure you don't forget "/")
-
-Step 2: git commit -m"your comments"
-
-Step 3: git push -u origin master
-
-Delete a directory
-
-Step 1: git rm -rf directory
-
-Step 2: git commit -m"your comments"
-
-Step 3: git push -u origin master
+墨课Android客户端
+1、自动定位
+2、二级下拉筛选分类菜单
+3、搜索课程
+4、城市名称按拼音顺序排序、安关键字搜索城市
+5、将课程详情信息分享给微信好友或朋友圈
